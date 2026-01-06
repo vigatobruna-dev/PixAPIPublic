@@ -1,18 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <title>PIX API</title>
-    <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist/swagger-ui.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Swagger UI LOCAL (sem CDN externa) -->
+    <link rel="stylesheet" href="./swagger-ui/swagger-ui.css" />
   </head>
+
   <body>
     <div id="swagger-ui"></div>
 
-    <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js"></script>
+    <script src="./swagger-ui/swagger-ui-bundle.js"></script>
+    <script src="./swagger-ui/swagger-ui-standalone-preset.js"></script>
+
     <script>
       SwaggerUIBundle({
-        url: "https://camargofe.github.io/pix-api-doc/pix.yaml",
-        dom_id: "#swagger-ui"
+        url: "./pix.yaml",          // 🔴 ESTE É O PONTO-CHAVE
+        dom_id: "#swagger-ui",
+        presets: [
+          SwaggerUIBundle.presets.apis,
+          SwaggerUIStandalonePreset
+        ],
+        layout: "BaseLayout"
       });
     </script>
   </body>
