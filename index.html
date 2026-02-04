@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="pt-BR">
 <head>
@@ -22,6 +21,7 @@
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
     overflow-x: hidden;
+    overflow-y: hidden; /* keep a single scroll container */
     -webkit-tap-highlight-color: transparent;
   }
 
@@ -165,8 +165,8 @@
     color: #0b1220;
     width: 100%;
     min-width: 0;
-    max-height: calc(100vh - (var(--page-gutter) * 2) - 12px);
-    overflow: auto;
+    max-height: none;
+    overflow: visible;
     text-align: left;
   }
 
@@ -649,7 +649,11 @@ function setActiveMenuByOpId(opId) {
   if (!opId) return;
   $qsa('.op-link').forEach(n => n.classList.remove('active'));
   const btn = document.querySelector(`.op-link[data-op-id="${opId}"]`);
-  if (btn) btn.classList.add('active');
+  if (btn) {
+    btn.classList.add('active');
+    // Keep active item visible inside the sidebar list
+    try { btn.scrollIntoView({ block: 'nearest' }); } catch(e){/*ignore*/}
+  }
 }
 
 function openOpblock(opblock, source = 'scroll') {
@@ -703,6 +707,11 @@ function buildSidebar() {
       btn.innerHTML = `<strong>${escapeHtml(text)}</strong>`;
       btn.addEventListener('click', () => {
         h2.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        Array.from(menu.querySelectorAll('.tag-item')).forEach(n => n.classList.remove('active'));
+        btn.classList.add('active');
+      });
+      btn.addEventListener('mouseenter', () => {
+        h2.scrollIntoView({ behavior: 'auto', block: 'center' });
         Array.from(menu.querySelectorAll('.tag-item')).forEach(n => n.classList.remove('active'));
         btn.classList.add('active');
       });
@@ -762,6 +771,7 @@ function buildSidebar() {
 
       btn.addEventListener('mouseenter', () => {
         if (!opblock) return;
+        opblock.scrollIntoView({ behavior: 'auto', block: 'center' });
         openOpblock(opblock, 'manual');
         if (opId) setActiveMenuByOpId(opId);
       });
@@ -952,6 +962,14 @@ function waitForOpblockBody(opblock, timeoutMs = 1200) {
     }, timeoutMs);
   });
 }
+
+function getScrollRoot() {
+  const content = document.getElementById('content');
+  if (!content) return null;
+  const isScrollable = content.scrollHeight > content.clientHeight + 4;
+  return isScrollable ? content : null;
+}
+
 function triggerTryItOut() {
   const opblock = lastClickedOpblock || document.querySelector('.opblock.is-open') || document.querySelector('.opblock');
   if (!opblock) return;
@@ -967,8 +985,7 @@ function triggerTryItOut() {
 }
 function setupScrollSpy() {
   if (scrollSpyObserver) scrollSpyObserver.disconnect();
-  const root = document.querySelector('.swagger-ui') || document.getElementById('content');
-  if (!root) return;
+  const root = getScrollRoot();
 
   const summaries = $qsa('.opblock-summary');
   if (!summaries.length) return;
@@ -984,21 +1001,23 @@ function setupScrollSpy() {
       openOpblock(opblock, 'scroll');
       setActiveMenuByOpId(opId);
     });
-  }, { root, rootMargin: '-10% 0px -60% 0px', threshold: 0.1 });
+  }, { root: root || null, rootMargin: '-10% 0px -60% 0px', threshold: 0.1 });
 
   summaries.forEach(s => scrollSpyObserver.observe(s));
 
   if (scrollRoot && scrollHandler) {
     scrollRoot.removeEventListener('scroll', scrollHandler);
   }
-  scrollRoot = root;
+  scrollRoot = root || window;
   let ticking = false;
   scrollHandler = () => {
     if (Date.now() - lastManualOpenAt < 600) return;
     if (ticking) return;
     ticking = true;
     requestAnimationFrame(() => {
-      const containerRect = scrollRoot.getBoundingClientRect();
+      const containerRect = (scrollRoot === window)
+        ? { top: 0, bottom: window.innerHeight }
+        : scrollRoot.getBoundingClientRect();
       const targetY = containerRect.top + 80;
       let best = null;
       let bestDist = Infinity;
@@ -1023,7 +1042,30 @@ function setupScrollSpy() {
       ticking = false;
     });
   };
-  scrollRoot.addEventListener('scroll', scrollHandler, { passive: true });
+  if (scrollRoot === window) {
+    window.addEventListener('scroll', scrollHandler, { passive: true });
+  } else {
+    scrollRoot.addEventListener('scroll', scrollHandler, { passive: true });
+  }
+}
+
+/* Proxy wheel scroll from sidebar/right panel to main content (single scroll source) */
+function bindScrollProxy() {
+  const content = document.getElementById('content');
+  const sidebar = document.getElementById('sidebar');
+  const codePanel = document.getElementById('code-panel');
+  if (!content) return;
+
+  const onWheel = (e) => {
+    // Only proxy vertical scroll when hovering sidebar or right panel
+    if (!e.deltaY && !e.deltaX) return;
+    e.preventDefault();
+    content.scrollTop += e.deltaY;
+    content.scrollLeft += e.deltaX || 0;
+  };
+
+  if (sidebar) sidebar.addEventListener('wheel', onWheel, { passive: false });
+  if (codePanel) codePanel.addEventListener('wheel', onWheel, { passive: false });
 }
 
 /* Focus trap */
@@ -1386,6 +1428,7 @@ function setupPanelControls() {
     try { removeZeroCounts(); } catch(e){/*ignore*/ }
     wireSearch();
     setupScrollSpy();
+    bindScrollProxy();
     bindGlobalOpClicks();
     observeSwagger();
     bindMobileControls();
