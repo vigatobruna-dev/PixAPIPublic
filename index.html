@@ -196,8 +196,8 @@
   }
   .swagger-ui th, .swagger-ui td {
     white-space: normal !important;
-    overflow-wrap: anywhere !important;
-    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    word-break: normal !important;
     max-width: 100% !important;
     padding: 6px 8px !important;
   }
@@ -206,6 +206,28 @@
     white-space: pre-wrap !important;
     overflow-wrap: anywhere !important;
     word-break: break-word !important;
+  }
+
+  /* Parameters table: avoid letter-by-letter breaks by enforcing sane column widths */
+  .swagger-ui .parameters-col_name {
+    min-width: 140px !important;
+  }
+  .swagger-ui .parameters-col_type,
+  .swagger-ui .parameters-col_in,
+  .swagger-ui .parameters-col_required {
+    min-width: 90px !important;
+  }
+  .swagger-ui .parameters-col_description {
+    min-width: 220px !important;
+  }
+  .swagger-ui .parameter__name,
+  .swagger-ui .parameter__type,
+  .swagger-ui .parameter__in,
+  .swagger-ui .parameter__deprecated,
+  .swagger-ui .parameter__enum {
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+    word-break: normal !important;
   }
 
   /* keep code blocks preformatted but wrapped */
@@ -456,8 +478,8 @@
     .swagger-ui th, .swagger-ui td {
       display: table-cell !important;
       white-space: normal !important;
-      overflow-wrap: anywhere !important;
-      word-break: break-word !important;
+      overflow-wrap: break-word !important;
+      word-break: normal !important;
       max-width: 100% !important;
       padding: 8px 10px !important;
     }
@@ -466,6 +488,12 @@
       overflow-wrap: anywhere !important;
       word-break: break-word !important;
     }
+
+    .swagger-ui .parameters-col_name { min-width: 120px !important; }
+    .swagger-ui .parameters-col_type,
+    .swagger-ui .parameters-col_in,
+    .swagger-ui .parameters-col_required { min-width: 80px !important; }
+    .swagger-ui .parameters-col_description { min-width: 180px !important; }
 
     /* Allow the right panel path to wrap on mobile */
     .panel-header .path {
