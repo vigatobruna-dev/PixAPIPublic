@@ -55,7 +55,7 @@
 
   /* ===== Sidebar (desktop) ===== */
   .sidebar {
-    background: var(--card);
+    background: #ffffff;
     border-right: 1px solid rgba(15,23,42,0.06);
     padding: 14px;
     display:flex;
@@ -67,6 +67,7 @@
     -webkit-overflow-scrolling: touch;
     min-width: 0;
   }
+  .sidebar, .nav, .menu-section, .ops { background: #ffffff; }
 
   .brand { display:flex; align-items:center; gap:10px; padding-bottom:6px; border-bottom:1px solid rgba(2,6,23,0.03); }
   .brand-text { font-weight:800; font-size:14px; }
@@ -83,8 +84,8 @@
 
   .nav { margin:0; padding:0; list-style:none; overflow:visible; }
   .menu-section { margin-bottom:8px; }
-  .menu-heading { display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:8px; color:var(--muted); font-weight:600; font-size:13px; }
-  .menu-heading .count { background: rgba(15,111,178,0.08); color:var(--brand); padding:3px 8px; border-radius:999px; font-size:12px; }
+  .menu-heading { display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:8px; color:#6b7280; font-weight:700; font-size:12px; text-transform:none; }
+  .menu-heading .count { background: #f1f3f5; color:#6b7280; padding:3px 8px; border-radius:999px; font-size:11px; }
 
   /* ensure normal wrapping and readable touch targets */
   .tag-item {
@@ -94,9 +95,11 @@
     cursor:pointer;
     font-size:0.95rem;
     color:#0b1220;
-    transition: background .12s, transform .06s;
+    transition: background .12s;
     padding: 10px;
-    border: 1px solid transparent;
+    border: 1px solid #eef0f3;
+    background: #ffffff;
+    box-shadow: none;
     text-align: left;
     white-space: normal;
     overflow-wrap: break-word;
@@ -104,8 +107,8 @@
     min-height: 44px;             /* touch target */
     align-items: center;
   }
-  .tag-item:hover { background: rgba(2,6,23,0.03); transform: translateY(-1px); }
-  .tag-item.active { background: linear-gradient(180deg,#f2f8ff,#ffffff); border:1px solid rgba(15,111,178,0.06); box-shadow: 0 6px 18px rgba(12,37,63,0.04); }
+  .tag-item:hover { background: #f5f6f7; }
+  .tag-item.active { background: #f0f2f4; border:1px solid #eef0f3; box-shadow: none; }
 
   .ops { margin-top:6px; padding-left:4px; display:flex; flex-direction:column; gap:6px; }
   .op-link {
@@ -116,8 +119,9 @@
     border-radius:8px;
     font-size:0.95rem;
     color:#263238;
-    background: transparent;
-    border: none;
+    background: #ffffff;
+    border: 1px solid #eef0f3;
+    box-shadow: none;
     text-align:left;
     cursor:pointer;
     white-space: normal;
@@ -125,15 +129,24 @@
     word-break: normal;
     min-height: 44px;            /* touch target */
   }
-  .op-link:hover { background: rgba(2,6,23,0.03); transform: translateY(-1px); }
-  .op-link.active { background: rgba(2,6,23,0.04); box-shadow: inset 3px 0 0 var(--brand); color:#0b1220; font-weight:700; }
+  .op-link:hover { background: #f5f6f7; }
+  .op-link.active { background: #eef1f5; box-shadow: inset 3px 0 0 var(--brand); color:#0b1220; font-weight:700; }
 
-  .method-pill-left { padding:8px 10px; border-radius:8px; font-weight:800; font-size:12px; color:#fff; min-width:56px; text-align:center; flex-shrink:0; }
+  .method-pill-left {
+    padding:6px 8px;
+    border-radius:4px;
+    font-weight:800;
+    font-size:11px;
+    color:#ffffff;
+    min-width:48px;
+    text-align:center;
+    flex-shrink:0;
+  }
 
-  .method-get { background:#16a34a; }
-  .method-post { background:#0ea5e9; }
-  .method-put { background:#f59e0b; color:#0b1220; }
-  .method-delete { background:#ef4444; }
+  .method-get { background:#2f9e44; }
+  .method-post { background:#1971c2; }
+  .method-put { background:#f59f00; color:#1f2937; }
+  .method-delete { background:#e03131; }
 
   /* ===== Content ===== */
   .content {
@@ -209,7 +222,7 @@
 
   /* ===== Right code panel (desktop) ===== */
   .code-panel {
-    background: var(--panel-bg);
+    background: #1f262b;
     border-left: 1px solid rgba(255,255,255,0.03);
     padding: 12px;
     color: #e6fbf4;
@@ -227,7 +240,7 @@
   }
 
   .panel-header {
-    background: rgba(0,0,0,0.28);
+    background: #1a2227;
     padding: 8px 12px;
     border-radius: 6px;
     display:flex;
@@ -235,17 +248,29 @@
     gap:10px;
     color: #fff;
   }
-  .panel-header .try { background: rgba(255,255,255,0.05); color: #dff6f2; padding: 4px 8px; border-radius:4px; font-weight:700; font-size:12px; text-transform:lowercase; }
+  .panel-header { flex-wrap: nowrap; }
+  .panel-header .try { white-space: nowrap; }
+  .panel-header .path { white-space: nowrap; }
+  .panel-header .try {
+    background: #22c55e;
+    color: #041417;
+    padding: 4px 8px;
+    border-radius:4px;
+    font-weight:700;
+    font-size:11px;
+    border: none;
+    cursor: pointer;
+  }
   .panel-header .method-pill { padding:6px 10px; border-radius:6px; font-weight:800; font-size:12px; color:#fff; }
   .panel-header .path { color:#e6fbf4; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace; font-size:13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
   .section-title { color: #e6fbf4; font-size:16px; font-weight:700; margin: 6px 0 4px; }
   .response-badges { display:flex; gap:8px; margin-bottom:8px; flex-wrap:wrap; }
-  .response-badges .badge { background:#101b1b; color:#9be1cc; padding:6px 10px; border-radius:6px; font-weight:700; cursor:pointer; border: 1px solid rgba(255,255,255,0.02); }
-  .response-badges .badge.active { background: linear-gradient(90deg,#1f9aa0,#2db4a6); color:#041417; }
+  .response-badges .badge { background:#0f1519; color:#e5e7eb; padding:6px 10px; border-radius:6px; font-weight:700; cursor:pointer; border: 1px solid rgba(255,255,255,0.06); }
+  .response-badges .badge.active { background: #22c55e; color:#041417; }
 
   .code-card {
-    background: var(--panel-card);
+    background: #11181d;
     border-radius:6px;
     overflow: hidden;
     border: 1px solid rgba(255,255,255,0.03);
@@ -260,7 +285,8 @@
   }
   .code-card .content-type { color:#9bdacb; font-size:13px; }
   .code-card .card-controls { display:flex; gap:12px; align-items:center; color:#cfe8df; font-size:13px; }
-  .code-card .card-controls button { background: transparent; border: none; color: #cfe8df; cursor:pointer; padding: 4px 8px; border-radius:4px; font-weight:700; }
+  .code-card .card-controls { flex-wrap: wrap; row-gap: 8px; }
+  .code-card .card-controls button { background: transparent; border: none; color: #e5e7eb; cursor:pointer; padding: 6px 10px; border-radius:6px; font-weight:700; }
   .code-card .code-area {
     padding: 12px;
     color: #9be1cc;
@@ -272,6 +298,18 @@
     overflow: auto;
   }
   .code-card .code-area pre { margin:0; background:transparent; color:inherit; }
+
+  .request-card .top-row { background: rgba(0,0,0,0.12); }
+  .request-card .payload-tab {
+    display:inline-flex;
+    align-items:center;
+    padding:4px 10px;
+    border-radius:6px;
+    background:#f1f3f5;
+    color:#1f2937;
+    font-size:12px;
+    font-weight:700;
+  }
 
   .panel-empty { color: rgba(255,255,255,0.65); font-size:13px; padding:8px; }
 
@@ -483,11 +521,25 @@
   <!-- RIGHT PANEL (desktop) / minimized handle hidden on mobile -->
   <aside class="code-panel" id="code-panel" role="region" aria-label="Painel de respostas" aria-live="polite" aria-atomic="true" aria-hidden="true">
     <div class="panel-header" id="panel-header" aria-hidden="false">
-      <div class="try">try</div>
+      <button id="response-try" class="try" aria-label="Abrir Try it out">Try it out</button>
       <div id="code-method" class="method-pill default">OP</div>
       <div id="code-path" class="path">/caminho/exemplo</div>
       <div style="margin-left:auto; display:flex; gap:8px; align-items:center;">
         <button id="panel-close" aria-label="Fechar painel" style="background:transparent;border:none;color:#cfe8df;cursor:pointer;font-weight:700;">Fechar</button>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-title">Request samples</div>
+      <div class="code-card request-card" id="request-card" style="margin-top:8px;">
+        <div class="top-row">
+          <div class="payload-tab">Payload</div>
+          <div class="content-type" id="request-content-type">application/json</div>
+          <div class="card-controls" id="request-controls">
+            <button id="request-copy" aria-label="Copiar request">Copy</button>
+          </div>
+        </div>
+        <div class="code-area" id="request-code-area"><pre><code></code></pre></div>
       </div>
     </div>
 
@@ -528,6 +580,11 @@
 const SWAGGER_URL = "https://camargofe.github.io/LwcDocumentacaoAPI/pix.yaml";
 let lastClickedOpblock = null;
 let focusTrapCleanup = null;
+let scrollSpyObserver = null;
+let lastAutoOpenId = null;
+let lastManualOpenAt = 0;
+let scrollRoot = null;
+let scrollHandler = null;
 
 SwaggerUIBundle({
   url: SWAGGER_URL,
@@ -548,6 +605,37 @@ function waitForSwaggerReady(timeout = 15000) {
       if (Date.now() - start > timeout) return reject(new Error('Swagger UI did not render in time'));
       requestAnimationFrame(check);
     })();
+  });
+}
+
+function ensureOpId(opblock) {
+  if (!opblock) return null;
+  if (!opblock.dataset.opId) {
+    opblock.dataset.opId = 'op-' + Math.random().toString(36).slice(2, 9);
+  }
+  return opblock.dataset.opId;
+}
+
+function setActiveMenuByOpId(opId) {
+  if (!opId) return;
+  $qsa('.op-link').forEach(n => n.classList.remove('active'));
+  const btn = document.querySelector(`.op-link[data-op-id="${opId}"]`);
+  if (btn) btn.classList.add('active');
+}
+
+function openOpblock(opblock, source = 'scroll') {
+  if (!opblock) return;
+  const summary = opblock.querySelector('.opblock-summary');
+  if (!summary) return;
+  if (source === 'manual') lastManualOpenAt = Date.now();
+  if (!opblock.classList.contains('is-open')) summary.click();
+  const toggle = opblock.querySelector('.opblock-summary .opblock-summary-control');
+  if (toggle && !opblock.classList.contains('is-open')) {
+    toggle.click();
+  }
+  lastClickedOpblock = opblock;
+  waitForOpblockBody(opblock, 1500).then(() => {
+    updateRightPanel(opblock);
   });
 }
 
@@ -618,9 +706,12 @@ function buildSidebar() {
     operations.forEach(op => {
       const method = op.querySelector('.opblock-summary-method')?.textContent?.trim() || '';
       const path = op.querySelector('.opblock-summary-path')?.textContent?.trim() || '';
+      const opblock = op.closest('.opblock');
+      const opId = ensureOpId(opblock);
       const btn = document.createElement('button');
       btn.className = 'op-link';
       btn.type = 'button';
+      if (opId) btn.dataset.opId = opId;
       btn.innerHTML = `<div class="method-pill-left method-${escapeHtml(method.toLowerCase())}">${escapeHtml(method)}</div>
                        <div style="display:flex;flex-direction:column;align-items:flex-start;">
                          <div style="font-size:13px;color:#0b1220;">${escapeHtml(path)}</div>
@@ -628,23 +719,22 @@ function buildSidebar() {
 
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
-        const opblock = op.closest('.opblock');
         if (!opblock) return;
-        const summary = opblock.querySelector('.opblock-summary');
-        if (summary) {
-          summary.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          summary.click();
-          lastClickedOpblock = opblock;
-          setTimeout(() => {
-            updateRightPanel(opblock);
-            if (window.innerWidth <= 1200) {
-              document.getElementById('sidebar')?.classList.remove('open');
-              document.getElementById('mobile-menu-overlay')?.classList.remove('visible');
-              document.body.classList.remove('no-scroll');
-              releaseFocusTrap();
-            }
-          }, 260);
+        opblock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        openOpblock(opblock, 'manual');
+        if (opId) setActiveMenuByOpId(opId);
+        if (window.innerWidth <= 1200) {
+          document.getElementById('sidebar')?.classList.remove('open');
+          document.getElementById('mobile-menu-overlay')?.classList.remove('visible');
+          document.body.classList.remove('no-scroll');
+          releaseFocusTrap();
         }
+      });
+
+      btn.addEventListener('mouseenter', () => {
+        if (!opblock) return;
+        openOpblock(opblock, 'manual');
+        if (opId) setActiveMenuByOpId(opId);
       });
 
       opsContainer.appendChild(btn);
@@ -740,10 +830,13 @@ function updateRightPanel(preferredOpblock){
   const badgesContainer = document.getElementById('response-badges');
   const contentTypeEl = document.getElementById('response-content-type');
   const codeAreaEl = document.getElementById('response-code-area');
+  const reqContentTypeEl = document.getElementById('request-content-type');
+  const reqCodeAreaEl = document.getElementById('request-code-area');
 
   if (!badgesContainer) return;
   badgesContainer.innerHTML = '';
   if (codeAreaEl) codeAreaEl.querySelector('pre code').textContent = '';
+  if (reqCodeAreaEl) reqCodeAreaEl.querySelector('pre code').textContent = '';
 
   const opblock = preferredOpblock || lastClickedOpblock || document.querySelector('.opblock.is-open');
   if (!opblock) {
@@ -788,6 +881,120 @@ function updateRightPanel(preferredOpblock){
   contentTypeEl.textContent = first.contentType || 'application/json';
   codeAreaEl.querySelector('pre code').textContent = first.text || '';
   try { hljs.highlightElement(codeAreaEl.querySelector('pre code')); } catch(e) {/*ignore*/}
+
+  // Request samples
+  if (reqContentTypeEl) reqContentTypeEl.textContent = 'application/json';
+  if (reqCodeAreaEl) {
+    const reqCodeNode =
+      opblock.querySelector('.request-body pre code') ||
+      opblock.querySelector('.request-body pre') ||
+      opblock.querySelector('.request-body .example') ||
+      opblock.querySelector('.request-body .microlight') ||
+      opblock.querySelector('.request-body .model-example') ||
+      opblock.querySelector('.request-body .model-example pre') ||
+      opblock.querySelector('.request-body .model-example code');
+
+    const reqText = reqCodeNode ? (reqCodeNode.textContent || reqCodeNode.innerText || '') : '';
+    reqCodeAreaEl.querySelector('pre code').textContent = reqText || '// Nenhum exemplo de request encontrado.';
+    try { hljs.highlightElement(reqCodeAreaEl.querySelector('pre code')); } catch(e) {/*ignore*/}
+  }
+}
+
+function waitForOpblockBody(opblock, timeoutMs = 1200) {
+  return new Promise((resolve) => {
+    const existing = opblock.querySelector('.opblock-body');
+    if (existing) return resolve(existing);
+
+    const start = Date.now();
+    const mo = new MutationObserver(() => {
+      const body = opblock.querySelector('.opblock-body');
+      if (body) {
+        mo.disconnect();
+        resolve(body);
+      } else if (Date.now() - start > timeoutMs) {
+        mo.disconnect();
+        resolve(null);
+      }
+    });
+    mo.observe(opblock, { childList: true, subtree: true });
+    setTimeout(() => {
+      mo.disconnect();
+      resolve(opblock.querySelector('.opblock-body'));
+    }, timeoutMs);
+  });
+}
+function triggerTryItOut() {
+  const opblock = lastClickedOpblock || document.querySelector('.opblock.is-open') || document.querySelector('.opblock');
+  if (!opblock) return;
+  openOpblock(opblock, 'manual');
+  waitForOpblockBody(opblock, 1500).then((body) => {
+    if (!body) return;
+    const tryBtn = body.querySelector('.try-out__btn');
+    if (tryBtn && !tryBtn.classList.contains('cancel')) {
+      tryBtn.click();
+    }
+    opblock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+}
+function setupScrollSpy() {
+  if (scrollSpyObserver) scrollSpyObserver.disconnect();
+  const root = document.querySelector('.swagger-ui') || document.getElementById('content');
+  if (!root) return;
+
+  const summaries = $qsa('.opblock-summary');
+  if (!summaries.length) return;
+
+  scrollSpyObserver = new IntersectionObserver((entries) => {
+    if (Date.now() - lastManualOpenAt < 600) return;
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const opblock = entry.target.closest('.opblock');
+      const opId = ensureOpId(opblock);
+      if (!opId || opId === lastAutoOpenId) return;
+      lastAutoOpenId = opId;
+      openOpblock(opblock, 'scroll');
+      setActiveMenuByOpId(opId);
+    });
+  }, { root, rootMargin: '-10% 0px -60% 0px', threshold: 0.1 });
+
+  summaries.forEach(s => scrollSpyObserver.observe(s));
+
+  if (scrollRoot && scrollHandler) {
+    scrollRoot.removeEventListener('scroll', scrollHandler);
+  }
+  scrollRoot = root;
+  let ticking = false;
+  scrollHandler = () => {
+    if (Date.now() - lastManualOpenAt < 600) return;
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const containerRect = scrollRoot.getBoundingClientRect();
+      const targetY = containerRect.top + 80;
+      let best = null;
+      let bestDist = Infinity;
+      summaries.forEach(s => {
+        const r = s.getBoundingClientRect();
+        if (r.bottom < containerRect.top || r.top > containerRect.bottom) return;
+        const dist = Math.abs(r.top - targetY);
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = s;
+        }
+      });
+      if (best) {
+        const opblock = best.closest('.opblock');
+        const opId = ensureOpId(opblock);
+        if (opId && opId !== lastAutoOpenId) {
+          lastAutoOpenId = opId;
+          openOpblock(opblock, 'scroll');
+          setActiveMenuByOpId(opId);
+        }
+      }
+      ticking = false;
+    });
+  };
+  scrollRoot.addEventListener('scroll', scrollHandler, { passive: true });
 }
 
 /* Focus trap */
@@ -1022,10 +1229,10 @@ function observeSwagger() {
         }
       }
     }
-    if (shouldRebuild) {
+      if (shouldRebuild) {
       clearTimeout(window._rebuild_sidebar);
       window._rebuild_sidebar = setTimeout(() => {
-        try { buildSidebar(); wireSearch(); removeZeroCounts(); } catch(e){/*ignore*/ }
+        try { buildSidebar(); wireSearch(); removeZeroCounts(); setupScrollSpy(); } catch(e){/*ignore*/ }
       }, 140);
     }
   });
@@ -1038,7 +1245,10 @@ function setupPanelControls() {
   const copyBtn = document.getElementById('response-copy');
   const expandBtn = document.getElementById('response-expand');
   const collapseBtn = document.getElementById('response-collapse');
+  const tryBtn = document.getElementById('response-try');
+  const requestCopyBtn = document.getElementById('request-copy');
   const codeAreaEl = document.getElementById('response-code-area');
+  const requestCodeAreaEl = document.getElementById('request-code-area');
 
   if (copyBtn) {
     copyBtn.addEventListener('click', async () => {
@@ -1103,6 +1313,37 @@ function setupPanelControls() {
 
   if (expandBtn) expandBtn.addEventListener('click', expandAll);
   if (collapseBtn) collapseBtn.addEventListener('click', collapseAll);
+  if (tryBtn) tryBtn.addEventListener('click', triggerTryItOut);
+  if (requestCopyBtn) {
+    requestCopyBtn.addEventListener('click', async () => {
+      const codeNode = requestCodeAreaEl?.querySelector('pre code');
+      const text = codeNode ? codeNode.textContent || codeNode.innerText : '';
+      if (!text) return;
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          ta.remove();
+        }
+        const original = requestCopyBtn.textContent;
+        requestCopyBtn.textContent = 'Copied';
+        setTimeout(() => {
+          requestCopyBtn.textContent = original;
+        }, 1400);
+      } catch (err) {
+        const original = requestCopyBtn.textContent;
+        requestCopyBtn.textContent = 'Error';
+        setTimeout(() => {
+          requestCopyBtn.textContent = original;
+        }, 1400);
+      }
+    });
+  }
 }
 
 /* Init */
@@ -1115,6 +1356,7 @@ function setupPanelControls() {
     try { buildSidebar(); } catch(e){/*ignore*/ }
     try { removeZeroCounts(); } catch(e){/*ignore*/ }
     wireSearch();
+    setupScrollSpy();
     bindGlobalOpClicks();
     observeSwagger();
     bindMobileControls();
